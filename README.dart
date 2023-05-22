@@ -14,6 +14,7 @@
                 }
                 if(userCredential?.user?.emailVerified==false)
                 {
+                  //لارسال اشعار بواسطة الايميل للتحقق من المستخدم
                   User? user = FirebaseAuth.instance.currentUser;
                   await user?.sendEmailVerification();
                 }
