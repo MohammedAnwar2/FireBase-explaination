@@ -1,6 +1,18 @@
 طريقة عملsign up
 خلال ذا المشروع عملنا على التحقق من ال emdil ي لانه لاحظت ما يتحقق منه بالشكل المطلوب لذا استخدمت هذه ال package للتحقق من الemail اللي هي email_validator 
 ```dart
+validator: (value) {
+  final bool isValid = EmailValidator.validate(value!);
+  if (!isValid) {
+    return "Email does not valid";
+  } else {
+    return null;
+  }
+}
+```
+
+
+```dart
 class SignUpWidget
 {
 
