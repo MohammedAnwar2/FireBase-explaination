@@ -7,7 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
    //هنا حددنا ايش من doc نريد ان نسحب البيانات منه
    //لما نحدد doc فان البيانات الراجعه في النهاية تكون على شكل map
    //ال data تعني البيانات التي بداخل القيمة الراجعه
-  FirebaseFirestore.instance.collection("users").doc("SK0cMfsOk6AZHXCL7HUK").get().then((value) {
+ ```dart
+FirebaseFirestore.instance.collection("users").doc("SK0cMfsOk6AZHXCL7HUK").get().then((value) {
     print("------------------------");
     value.data()?.forEach((key, value) { 
       print("$key = $value");
@@ -17,9 +18,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 print("-----------------------------++++++++++++++++++++------------------------------------------");
+```
 
  //هنا رجعنا كل ال doc الموجوده بداخل ال collection users
  //لما نرجع كل ال doc فان البيانات الراجعه في النهاية تكون على شكل List وما بداخلها Map
+```dart
     FirebaseFirestore.instance.collection("users").get().then((value) {
       value.docs.forEach((element) { //List 
         print("--------------------------");
@@ -42,3 +45,15 @@ print("-----------------------------++++++++++7777++++++++++--------------------
 
 
 }
+```
+
+# لتحديد البيانات بشكل كامل نستخدم ال 
+```dart
+    FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["ar","en"]).get().then((value) {
+      value.docs.forEach((element) {
+        print("-------------------------------------------------------------------------------");
+        print(element.data()["userName"]);
+        print(element.exists);
+      });
+    });
+```
