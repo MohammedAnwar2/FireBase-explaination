@@ -47,7 +47,8 @@ print("-----------------------------++++++++++7777++++++++++--------------------
 }
 ```
 
-# لتحديد البيانات بشكل كامل نستخدم ال Filtering 
+# لفلترة البيانات بشكل كامل نستخدم ال Filtering 
+# لكن هنا يوجد فلتر واحد فقط
 ```dart
     FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["ar","en"]).get().then((value) {
       value.docs.forEach((element) {
@@ -57,4 +58,19 @@ print("-----------------------------++++++++++7777++++++++++--------------------
       });
     });
 ```
-ال lang هو ال doc الموجود بداخل ال collection users 
+ال lang هو ال doc الموجود بداخل الcollection users 
+
+
+# لعمل عدة فلاتر نستخد الاتي و ذلك بتكرار ال while
+```dart
+FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["ar"]).where("age",isGreaterThanOrEqualTo: "20").where("userName",isEqualTo: "Salem").get().then((value) {
+      value.docs.forEach((element) {
+        print("-------------------------------------------------------------------------------");
+        print(element.data());
+        print(element.exists);
+      });
+    });
+   ```
+   # ملاحظه
+   - ممكن ما يشتغل سواء , بيظهر لنا رابط في ال Run  انسخة الى اي BROWSER مثل القوقل كروم  وبعدها انتظر لييين تتحول كلمة Building الى Enabled
+   - بعدها اضغط على الاحمر(ctrl+F2) من شان يتقفل البرنامج ومن ثم اعمل flutter clean ويعدها اعد تشغيل البرنامج بالاخضر (shift+F12) 
