@@ -92,4 +92,14 @@ FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["
         }
 ```
 - ال limit خلها اخر شيء 
-- عند استخدام StartAt , EndAt , StartAfter , endBefore خل الdescending ء, orderBy("age",descending: false) تساوي  false او لا تكتب ال orderBy ابدا , كل ذا من شان يضل الترتيب من الاصغر الى الاكبر , لانه في حالة كان true  بيكون الترتيب من الاكبر الى الاصغر ولذا ما رح نقدر نطبق الخواص الاربع ذولا بشكل كااامل   
+- عند استخدام StartAt , EndAt , StartAfter , endBefore خل الdescending ء, orderBy("age",descending: false) تساوي  false او لا تكتب ال orderBy ابدا , كل ذا من شان يضل الترتيب من الاصغر الى الاكبر , لانه في حالة كان true  بيكون الترتيب من الاكبر الى الاصغر ولذا ما رح نقدر نطبق الخواص الاربع ذولا بشكل كااامل
+
+# Realtime changes
+```dart
+ FirebaseFirestore.instance.collection("users").snapshots().listen((event) {
+      event.docs.forEach((element) {
+        print("------------------------------------------------------");
+        print(element.data());
+      });
+    });
+  ```
