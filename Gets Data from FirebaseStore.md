@@ -47,7 +47,7 @@ print("-----------------------------++++++++++7777++++++++++--------------------
 }
 ```
 
-# لتحديد البيانات بشكل كامل نستخدم ال 
+# لتحديد البيانات بشكل كامل نستخدم ال Filtering 
 ```dart
     FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["ar","en"]).get().then((value) {
       value.docs.forEach((element) {
