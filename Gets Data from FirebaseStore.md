@@ -61,7 +61,7 @@ print("-----------------------------++++++++++7777++++++++++--------------------
 ال lang هو ال doc الموجود بداخل الcollection users 
 
 
-# لعمل عدة فلاتر نستخد الاتي و ذلك بتكرار ال while
+# لعمل عدة فلاتر نستخدم الاتي و ذلك بتكرار ال while
 ```dart
 FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["ar"]).where("age",isGreaterThanOrEqualTo: "20").where("userName",isEqualTo: "Salem").get().then((value) {
       value.docs.forEach((element) {
