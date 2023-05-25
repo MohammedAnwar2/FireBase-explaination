@@ -90,6 +90,6 @@ FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["
           print("------------------------------------------------------------------------------------------------------");
           print(element.data());
         }
-     ```
+```
 - ال limit خلها اخر شيء 
 - عند استخدام StartAt , EndAt , StartAfter , endBefore خل الdescending ء, orderBy("age",descending: false) تساوي  false او لا تكتب ال orderBy ابدا , كل ذا من شان يضل الترتيب من الاصغر الى الاكبر , لانه في حالة كان true  بيكون الترتيب من الاكبر الى الاصغر ولذا ما رح نقدر نطبق الخواص الاربع ذولا بشكل كااامل   
