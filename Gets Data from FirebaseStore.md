@@ -126,3 +126,34 @@ FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["
    "userName":"basel fhme"
  });
 ```
+
+# Update Date in fireStore
+
+أولا عند ال update لازم نحدد ال id 
+
+
+1 - using update 
+ 
+FirebaseFirestore.instance.collection("users").doc("123"). update (
+    {
+      "age":"56",
+    });
+}
+عند استعمال ال update ، راح يتم تحديث القيمه الموجود في ذلك ال id , لكن عند ادخااال id خاطئ راح يرجع خطأ وهذه مشكله والحل في set
+
+
+
+2 - using set
+ FirebaseFirestore.instance.collection("users").doc("1123").set(
+    {
+      "age":"56",
+    },SetOptions(merge: true));
+}
+
+ال set اختصاصها انشأ doc جديد ، حتى عند استعمالها بالوضع العادي ، راح يتم انشأ واحد جديد واذا كان موجود ال id راح يعمل له rebuild من جديد ، يعني لو جئنا بنعدل ال age فقط راح يتم مسح كل شيء ويبني لك doc جديد فيها age فقط
+
+فالحل نستخدم,SetOptions(merge: true) الموجوده بداخل ال set فوظيفتها تخلي الset مثل ال update يعني لو تريد نعدل على حاجه معينه راح يتم التعديل على هذه الحاجه فقط ولن يتم المساس باي قيمه أخرى ، 
+
+الاختلاف بين ال update وال set
+إذا كان ال id خاطى 
+فان ال update ترجع خطأ وال set تنشأ doc جديد
