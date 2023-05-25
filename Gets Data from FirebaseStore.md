@@ -73,4 +73,21 @@ FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["
    ```
    # ملاحظه
    - ممكن ما يشتغل سواء , بيظهر لنا رابط في ال Run  انسخة الى اي BROWSER مثل القوقل كروم  وبعدها انتظر لييين تتحول كلمة Building الى Enabled
-   - بعدها اضغط على الاحمر(ctrl+F2) من شان يتقفل البرنامج ومن ثم اعمل flutter clean ويعدها اعد تشغيل البرنامج بالاخضر (shift+F12) 
+   - بعدها اضغط على الاحمر(ctrl+F2) من شان يتقفل البرنامج ومن ثم اعمل flutter clean ويعدها اعد تشغيل البرنامج بالاخضر(shift+F12) 
+
+
+
+
+
+# Cloud Firestore Order By , Limit , StartAt , EndAt , StartAfter , endBefore
+- StartAt = Greater or Equal to 
+- StartAfter = Greater than
+- EndAt = Less or Equal to 
+- endBefore = Less than 
+```dart
+ FirebaseFirestore.instance.collection("users").orderBy("age",descending: false).startAfter(["19"]).limit(1).get().then((value) {
+        for (var element in value.docs) {
+          print("------------------------------------------------------------------------------------------------------");
+          print(element.data());
+        }
+     ```
