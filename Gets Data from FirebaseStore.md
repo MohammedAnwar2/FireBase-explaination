@@ -103,3 +103,26 @@ FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["
       });
     });
   ```
+  
+# Add data to fireStore
+
+1- مع id عشوائي 
+```dart
+     FirebaseFirestore.instance.collection("users").add({
+       "age":"35",
+       "email":"nnnnn@gmail.com",
+       "lang":["ar","fr","en"],
+       "password":"abc772555127",
+       "userName":"Ahmed Saleh"
+     });
+```
+2 - مع تخصيص id 
+```dart
+ FirebaseFirestore.instance.collection("users").doc("123").set({
+   "age":"55",
+   "email":"vvvv@gmail.com",
+   "lang":["ar","fr","en"],
+   "password":"abc772555127",
+   "userName":"basel fhme"
+ });
+```
