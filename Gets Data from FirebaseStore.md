@@ -303,19 +303,34 @@ ________________________________________________
 - عمليات القراء (read)هن { get }
 - في ال Batch Write  اما كل العمليات تنجح او كل العمليات تفشل مثلها مثل ال Transaction.
 
+1 - تعديل كل ال docs
 ```dart
-  DocumentReference doc1 = FirebaseFirestore.instance.collection("users").doc("1123");
-DocumentReference doc2 = FirebaseFirestore.instance.collection("users").doc("1a4cfmPF6xuoGLCior8v");
 WriteBatch batch = FirebaseFirestore.instance.batch();
 FirebaseFirestore.instance.collection("users").get().then((value) {
-  value.docs.forEach((element) {
-    batch.update(doc1, {
-      "email":"1111111111111111111111111"});
-    batch.update(doc2, {
-      "age":FieldValue.delete()
+  value.docs.forEach((documents) {
+    batch.update(documents.reference, {
+      "email":"123"});
+    batch.set(documents.reference, {
+      "userName":"123"},SetOptions(merge: true));
+    batch.update(documents.reference, {
+      "age":FieldValue.delete(),
+      "password":"123"
     });
   });
-batch.commit();
-
+  
+  batch.commit();
 });
+
+```
+2 - تعديل  docs محدد
+```dart
+DocumentReference doc1 = FirebaseFirestore.instance.collection("users").doc("1123");
+DocumentReference doc2 = FirebaseFirestore.instance.collection("users").doc("1a4cfmPF6xuoGLCior8v");
+WriteBatch batch = FirebaseFirestore.instance.batch();
+   batch.update(doc1, {
+     "email":"zzzzzzz"});
+   batch.update(doc2, {
+     "lang":FieldValue.delete()
+   });
+   batch.commit();
 ```
