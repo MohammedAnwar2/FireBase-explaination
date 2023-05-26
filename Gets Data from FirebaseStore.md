@@ -169,6 +169,7 @@ FirebaseFirestore.instance.collection("users").doc("123"). update (
 
 1 - delete documents
 
+```dart
 FirebaseFirestore.instance
       .collection("users")
       .doc("1123")
@@ -177,6 +178,7 @@ FirebaseFirestore.instance
   }).catchError((e) {
     Get.snackbar("Error", "$e");
   });
+  ```
 
 
 
@@ -184,6 +186,7 @@ FirebaseFirestore.instance
 You can use  the 'delete' method with the 'FieldValue' class
 
 
+  ```dart
   FirebaseFirestore.instance
       .collection("users")
       .doc("1123")
@@ -192,3 +195,4 @@ You can use  the 'delete' method with the 'FieldValue' class
   }).catchError((e) {
     Get.snackbar("Error", "$e");
   });
+```
