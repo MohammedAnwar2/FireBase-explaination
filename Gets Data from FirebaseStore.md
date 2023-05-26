@@ -293,3 +293,28 @@ ________________________________________________
     }
   });
   ```
+  
+  
+# Batch Write
+- يمكننا من تنفيذ اكثر من عملية كتابة بوقت واحد ( set , update , delete ) 
+ *ملاحظة مهمه
+- عمليات الكتابة (write)هن { set , update , delete }
+- عمليات القراء (read)هن { get }
+- في ال Batch Write  اما كل العمليات تنجح او كل العمليات تفشل مثلها مثل ال Transaction.
+
+```dart
+  DocumentReference doc1 = FirebaseFirestore.instance.collection("users").doc("1123");
+DocumentReference doc2 = FirebaseFirestore.instance.collection("users").doc("1a4cfmPF6xuoGLCior8v");
+WriteBatch batch = FirebaseFirestore.instance.batch();
+FirebaseFirestore.instance.collection("users").get().then((value) {
+  value.docs.forEach((element) {
+    batch.update(doc1, {
+      "email":"1111111111111111111111111"});
+    batch.update(doc2, {
+      "age":FieldValue.delete()
+    });
+  });
+batch.commit();
+
+});
+```
