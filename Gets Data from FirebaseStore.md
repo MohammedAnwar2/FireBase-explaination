@@ -126,6 +126,16 @@ _______________________________________________________________
    "userName":"basel fhme"
  });
 ```
+3 - اضافة اشياء معينه فقط الى ال doc نستخدم برضو ال set مع SetOptions(merge: true)
+```dart
+ FirebaseFirestore.instance.collection("users").doc("1123").set(
+    {
+      "class":"56",
+    },SetOptions(merge: true));
+    // بيضيف ال class بدون ما يعمل  rebuild  لل doc كامل
+}
+```
+
 ________________________________________________________
 # Update Date in fireStore
 
