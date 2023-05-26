@@ -302,7 +302,7 @@ ________________________________________________
 - عمليات الكتابة (write)هن { set , update , delete }
 - عمليات القراء (read)هن { get }
 - في ال Batch Write  اما كل العمليات تنجح او كل العمليات تفشل مثلها مثل ال Transaction.
-
+- لازم نعمل batch.commit() من اجل تحديث البيانات مثلها مثل ال setState وال update وال emit  
 1 - تعديل كل ال docs
 ```dart
 WriteBatch batch = FirebaseFirestore.instance.batch();
