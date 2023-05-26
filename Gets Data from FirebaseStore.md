@@ -196,9 +196,9 @@ You can use  the 'delete' method with the 'FieldValue' class
     Get.snackbar("Error", "$e");
   });
 ```
-
+___________________________________________________
 # catchError and then : we can used with all the properties of firstore {'add','delete','update'}
-
+_________________________________________________________
 
 #  Nasted Collection
 ```dart
