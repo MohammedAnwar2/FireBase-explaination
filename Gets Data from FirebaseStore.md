@@ -134,21 +134,25 @@ FirebaseFirestore.instance.collection("users").where("lang",arrayContainsAny: ["
 
 1 - using update 
  
+```dart
 FirebaseFirestore.instance.collection("users").doc("123"). update (
     {
       "age":"56",
     });
 }
+```
 عند استعمال ال update ، راح يتم تحديث القيمه الموجود في ذلك ال id , لكن عند ادخااال id خاطئ راح يرجع خطأ وهذه مشكله والحل في set
 
 
 
 2 - using set
+```dart
  FirebaseFirestore.instance.collection("users").doc("1123").set(
     {
       "age":"56",
     },SetOptions(merge: true));
 }
+```
 
 ال set اختصاصها انشأ doc جديد ، حتى عند استعمالها بالوضع العادي ، راح يتم انشأ واحد جديد واذا كان موجود ال id راح يعمل له rebuild من جديد ، يعني لو جئنا بنعدل ال age فقط راح يتم مسح كل شيء ويبني لك doc جديد فيها age فقط
 
@@ -157,3 +161,34 @@ FirebaseFirestore.instance.collection("users").doc("123"). update (
 الاختلاف بين ال update وال set
 إذا كان ال id خاطى 
 فان ال update ترجع خطأ وال set تنشأ doc جديد
+
+
+
+
+# Delete Data 
+
+1 - delete documents
+
+FirebaseFirestore.instance
+      .collection("users")
+      .doc("1123")
+      .delete().then((value) {
+    Get.snackbar("Successfully", "The delete doc is successfully");
+  }).catchError((e) {
+    Get.snackbar("Error", "$e");
+  });
+
+
+
+2 - delete a specific properties from within a document itself 
+You can use  the 'delete' method with the 'FieldValue' class
+
+
+  FirebaseFirestore.instance
+      .collection("users")
+      .doc("1123")
+      .update({"age":FieldValue.delete()}).then((value) {
+    Get.snackbar("Successfully", "The delete doc is successfully");
+  }).catchError((e) {
+    Get.snackbar("Error", "$e");
+  });
