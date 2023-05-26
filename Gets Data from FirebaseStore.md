@@ -228,6 +228,7 @@ ________________________________________________
 # Cloud Firestore Transactions
 
 هو وسيلة للتأكد من عملية كتابة تحدث فقط على اخر البيانات المتوفره على السيرفر ، يعني أولا نقرأ من الفايرستور وبعدها نستعمل نكتب ، كل ذا من أجل التأكد ان الكتابة راح تحدث على آخر البيااانات الموحوده في الفايرستور ، مثال لو عند بوستات بأسمك القديم وأنت تريد تعديل اسمك القديم في كل البوستات ، فعند التعديل مباشرة ممكن يحدث خطأ كبير اللي هو ، لو مثلا حدث خطأ في منتصف الطريق فهنا راح تظهر بعض البوستات بأسمك القديم وبعضها بأسمك الحالي وذي مشكلة ، فالحل اننا أولا نقرأ كل البيانات من شااان التأكد ، وبعدها نعدل فعند التعديل اما انه بيعدل على كل البيانات او انه ما رح يعدل ابدا. فالخطأ بالغالب اما يكون سوء الاتصال بالسيرفر او بطئ انترنت او...او....او....
+- create doc
 ```dart
  DocumentReference documentReference = FirebaseFirestore.instance.collection("users").doc("1123");
   FirebaseFirestore.instance.runTransaction((transaction)async {
@@ -244,3 +245,52 @@ ________________________________________________
     }
   });
  ```
+ - delete one specific property
+ ```dart
+ DocumentReference documentReference = FirebaseFirestore.instance.collection("users").doc("1123");
+  FirebaseFirestore.instance.runTransaction((transaction)async {
+    DocumentSnapshot snapshot = await transaction.get(documentReference);
+    if(snapshot.exists)
+    {
+      transaction.update(documentReference, {
+        "age":FieldValue.delete(),
+        "password":"1234",
+      },);
+    }else
+    {
+      throw Exception("User does not exist!");
+    }
+  });
+  ```
+- delete all the doc
+```dart
+  DocumentReference documentReference = FirebaseFirestore.instance.collection("users").doc("1123");
+  FirebaseFirestore.instance.runTransaction((transaction)async {
+    DocumentSnapshot snapshot = await transaction.get(documentReference);
+    if(snapshot.exists)
+    {
+      transaction.delete(documentReference);
+    }else
+    {
+      throw Exception("User does not exist!");
+    }
+  });
+  ```
+  - upate
+  ```dart
+   DocumentReference documentReference = FirebaseFirestore.instance.collection("users").doc("1123");
+  FirebaseFirestore.instance.runTransaction((transaction)async {
+    DocumentSnapshot snapshot = await transaction.get(documentReference);
+    if(snapshot.exists)
+    {
+      transaction.update(documentReference,{
+        "email":"nnnnn@gmail.com",
+        "lang":["ar","fr","en"],
+        "password":"abc772555127",
+      });
+    }else
+    {
+      throw Exception("User does not exist!");
+    }
+  });
+  ```
