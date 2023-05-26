@@ -198,3 +198,18 @@ You can use  the 'delete' method with the 'FieldValue' class
 ```
 
 # catchError and then : we can used with all the properties of firstore {'add','delete','update'}
+
+
+#  Nasted Collection
+```dart
+  FirebaseFirestore.instance
+      .collection("users")
+      .doc("1123")
+      .collection("adress")
+      .doc("ATVYt1trYCUIrvkUVjLH")
+      .update({"city": "Hadramoute"}).then((value) {
+    Get.snackbar("Successfully", "The update doc is successfully");
+  }).catchError((e) {
+    Get.snackbar("Error", "$e");
+  });
+```
