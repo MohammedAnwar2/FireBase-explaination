@@ -338,9 +338,9 @@ WriteBatch batch = FirebaseFirestore.instance.batch();
 # عرض البيانات على ال ui
 
 * ui.isEmpty||ui==null?const Center(child: CircularProgressIndicator()): ListView.builder()
-- توجد طريقتين
+- توجد 3 طرق
 
-* الطريقة الاولى(استخدام List)
+* الطريقة الاولى(نحتاج ال setState من اجل عملية التخزين)(استخدام List)
 
 1 - [To Get One Document]
 ```dart
@@ -381,7 +381,7 @@ List ui=[] ;
   }
 ```
 
-* الطريقة الثانية (لا نتحتاج الى ال setState)(FutureBuilder)
+* الطريقة الثانية (لا نحتاج ال setState من اجل عملية التخزين , لكن نحتاجها من اجل الاضافة و الحذف من ال fireStore)(FutureBuilder)
 
 1 - [To Get All The Documents]
 ```dart
@@ -437,6 +437,104 @@ class Test extends StatelessWidget {
     return Scaffold(
         body: FutureBuilder(
       future: users.get(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+              return Card(
+                child: ListTile(
+                  title: Text("${snapshot.data.data()["userName"]}"),
+                  subtitle: Text("${snapshot.data.data()["email"]}"),
+                  trailing: Text("${snapshot.data.data()["password"]}"),
+                ),
+              );
+        }
+        if (snapshot.hasError) {
+          return Text("error");
+        }
+        return Center(child:CircularProgressIndicator() );
+      },
+    ));
+  }
+}
+
+```
+
+* الطريقة الثالثة (لا نحتاج ال setState من اجل عملية التخزين , ولا نحتاجها من اجل الاضاف و الحذف من ال(fireStore)(StreamBuilder)
+
+
+1 - [To Get All The Documents]
+
+```dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+class Test extends StatelessWidget {
+  Test({Key? key}) : super(key: key);
+
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
+  AddData()async{
+    FirebaseFirestore.instance.collection("users").add({
+      "userName":"Mazen",
+      "email":"axcs@gmail.com",
+      "password":"123xss7725",
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            AddData();
+          }, icon: Icon(Icons.add)),
+        ],
+      ),
+        body: StreamBuilder(
+      stream: users.snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    title: Text("${snapshot.data.docs[index].data()["userName"]}"),
+                    subtitle: Text("${snapshot.data.docs[index].data()["email"]}"),
+                    trailing: Text("${snapshot.data.docs[index].data()["password"]}"),
+                  ),
+                );
+              },);
+        }
+        if (snapshot.hasError) {
+          return Text("error");
+        }
+        return Center(child:CircularProgressIndicator() );
+      },
+    ));
+  }
+}
+```
+2 - [To Get One Document]
+
+```dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+class Test extends StatefulWidget {
+  Test({Key? key}) : super(key: key);
+
+  @override
+  State<Test> createState() => _TestState();
+}
+
+class _TestState extends State<Test> {
+  DocumentReference users = FirebaseFirestore.instance.collection("users").doc("mohammed");
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+        body: StreamBuilder(
+      stream: users.snapshots(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
               return Card(
