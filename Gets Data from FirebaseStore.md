@@ -339,7 +339,8 @@ WriteBatch batch = FirebaseFirestore.instance.batch();
 - توجد طريقتين
 
 * الطريقة الاولى()
-1-
+
+1
 ```dart
  List ui=[] ;
   getData()async{
@@ -356,7 +357,7 @@ WriteBatch batch = FirebaseFirestore.instance.batch();
     super.initState();
   }
 ```
-2-
+2 
 ```dart
 List ui=[] ;
 
@@ -376,3 +377,5 @@ List ui=[] ;
     super.initState();
   }
 ```
+
+*الطريقة الثانية
