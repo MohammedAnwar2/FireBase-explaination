@@ -334,3 +334,45 @@ WriteBatch batch = FirebaseFirestore.instance.batch();
    });
    batch.commit();
 ```
+
+# عرض البيانات على ال ui
+- توجد طريقتين
+
+* الطريقة الاولى()
+1-
+```dart
+ List ui=[] ;
+  getData()async{
+    FirebaseFirestore.instance.collection("users").doc("1123").get().then((value) {
+     setState(() {
+      ui.add(value.data());
+     });
+
+     });
+  }
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+```
+2-
+```dart
+List ui=[] ;
+
+  getData()async{
+    FirebaseFirestore.instance.collection("users").get().then((value) {
+      value.docs.forEach((element) {
+        setState(() {
+          ui.add(element.data());
+        });
+
+      });
+    });
+  }
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+```
