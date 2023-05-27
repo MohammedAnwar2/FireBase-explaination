@@ -342,7 +342,7 @@ WriteBatch batch = FirebaseFirestore.instance.batch();
 
 * الطريقة الاولى(استخدام List)
 
-1
+1 - [To Get One Document]
 ```dart
  List ui=[] ;
   getData()async{
@@ -359,7 +359,8 @@ WriteBatch batch = FirebaseFirestore.instance.batch();
     super.initState();
   }
 ```
-2 
+
+2 - [To Get All The Documents]
 ```dart
 List ui=[] ;
 
@@ -382,7 +383,7 @@ List ui=[] ;
 
 * الطريقة الثانية(FutureBuilder)
 
-1 
+1 - [To Get All The Documents]
 ```dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -421,7 +422,38 @@ class Test extends StatelessWidget {
   }
 }
 ```
-2
+2 - [To Get One Document]
 ```dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+class Test extends StatelessWidget {
+  Test({Key? key}) : super(key: key);
+
+  DocumentReference users = FirebaseFirestore.instance.collection("users").doc("1123");
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: FutureBuilder(
+      future: users.get(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+              return Card(
+                child: ListTile(
+                  title: Text("${snapshot.data.data()["userName"]}"),
+                  subtitle: Text("${snapshot.data.data()["email"]}"),
+                  trailing: Text("${snapshot.data.data()["password"]}"),
+                ),
+              );
+        }
+        if (snapshot.hasError) {
+          return Text("error");
+        }
+        return Center(child:CircularProgressIndicator() );
+      },
+    ));
+  }
+}
 
 ```
