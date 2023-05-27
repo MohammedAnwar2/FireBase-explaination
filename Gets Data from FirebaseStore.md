@@ -336,6 +336,8 @@ WriteBatch batch = FirebaseFirestore.instance.batch();
 ```
 
 # عرض البيانات على ال ui
+
+* ui.isEmpty||ui==null?const Center(child: CircularProgressIndicator()): ListView.builder()
 - توجد طريقتين
 
 * الطريقة الاولى()
