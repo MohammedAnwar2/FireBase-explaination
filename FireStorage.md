@@ -1,4 +1,3 @@
-```dart
 import 'dart:io';
 import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -21,9 +20,16 @@ class _TestState extends State<Test> {
     {
       int random = Random().nextInt(1000000000);
       File file = File(image.path);
+      //لجلب الاسم من الpath كامل
       var nameImage = basename(image.path);
       nameImage = "$random$nameImage";
+      //اعطيناه في كل مره اسم مختلف لانه بعض احيااان يتكرر الاسم واذا تكرر فإنه الصوره الجديدة تاخذ محل الصورة القديمة 
+      
       var revrenceImage = FirebaseStorage.instance.ref("Photos").child("Gallery").child(nameImage);
+      //هنا عندك put و get 
+      //اكيييد ال put معناها رفع الfile الى ال storage
+      // وال get تجيب ال URL حق الصورة التي تمر رفعها
+      
       await revrenceImage.putFile(file);
       url = await revrenceImage.getDownloadURL();
       setState(() {});
@@ -36,17 +42,25 @@ class _TestState extends State<Test> {
         return null;
     }
   }
+
+
+
+
+
   getNamesOfImagesAndFolders() async {
 
     var ref = await FirebaseStorage.instance.ref().child("Photos").child("Camara").listAll();
     ref.items.forEach((element) {
       print(element.name);
     });
-
+//ال item لجلب اسماء العناصر اللي بداخل هذه ال path
     ref.prefixes.forEach((element) {
       print(element.name);
     });
-    
+    //ال prefixes لجلب اسماء الملفات اللي بداخل هذه ال path
+element.name(يجلب اسماء)
+element.fullPath(يجلب ال path)
+
   }
 
   @override
@@ -72,4 +86,4 @@ class _TestState extends State<Test> {
         ));
   }
 }
-```
+
