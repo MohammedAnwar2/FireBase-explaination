@@ -381,7 +381,7 @@ List ui=[] ;
   }
 ```
 
-* الطريقة الثانية(FutureBuilder)
+* الطريقة الثانية (لا نتحتاج الى ال setState)(FutureBuilder)
 
 1 - [To Get All The Documents]
 ```dart
