@@ -340,7 +340,7 @@ WriteBatch batch = FirebaseFirestore.instance.batch();
 * ui.isEmpty||ui==null?const Center(child: CircularProgressIndicator()): ListView.builder()
 - توجد طريقتين
 
-* الطريقة الاولى()
+* الطريقة الاولى(استخدام List)
 
 1
 ```dart
@@ -380,4 +380,4 @@ List ui=[] ;
   }
 ```
 
-* الطريقة الثانية
+* الطريقة الثانية(FutureBuilder)
