@@ -381,3 +381,47 @@ List ui=[] ;
 ```
 
 * الطريقة الثانية(FutureBuilder)
+
+1 
+```dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+class Test extends StatelessWidget {
+  Test({Key? key}) : super(key: key);
+
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: FutureBuilder(
+      future: users.get(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text("${snapshot.data.docs[index].data()["userName"]}"),
+                      subtitle: Text("${snapshot.data.docs[index].data()["email"]}"),
+                      trailing: Text("${snapshot.data.docs[index].data()["password"]}"),
+                    ),
+                  );
+                },
+              );
+        }
+        if (snapshot.hasError) {
+          return Text("error");
+        }
+        return Center(child:CircularProgressIndicator() );
+      },
+    ));
+  }
+}
+```
+2
+```dart
+
+```
