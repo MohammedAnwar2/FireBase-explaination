@@ -89,7 +89,7 @@ element.fullPath(يجلب ال path)
 }
 ```
 
-#لتغيير كلمة السر والحساب
+# لتغيير كلمة السر والحساب
  ```dart
  await auth.currentUser?.reauthenticateWithCredential(userCredential).then((value) async {
   // Your logic
