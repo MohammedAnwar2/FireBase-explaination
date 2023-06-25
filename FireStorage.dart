@@ -87,3 +87,10 @@ element.fullPath(يجلب ال path)
   }
 }
 
+
+#لتغيير كلمة السر والحساب
+  await auth.currentUser?.reauthenticateWithCredential(userCredential).then((value) async {
+  // Your logic
+}).catchError((err) {
+  print(err);
+});
