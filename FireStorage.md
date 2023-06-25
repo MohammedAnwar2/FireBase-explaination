@@ -1,3 +1,4 @@
+```dart
 import 'dart:io';
 import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -86,11 +87,13 @@ element.fullPath(يجلب ال path)
         ));
   }
 }
-
+```
 
 #لتغيير كلمة السر والحساب
-  await auth.currentUser?.reauthenticateWithCredential(userCredential).then((value) async {
+ ``dart
+ await auth.currentUser?.reauthenticateWithCredential(userCredential).then((value) async {
   // Your logic
 }).catchError((err) {
   print(err);
 });
+```
