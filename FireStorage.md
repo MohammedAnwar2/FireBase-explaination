@@ -97,3 +97,14 @@ element.fullPath(يجلب ال path)
   print(err);
 });
 ```
+# للحصول على ال id  حق ال document نعمل الاتي
+```dart
+FirebaseFirestore.instance.collection("note").where("userId",isEqualTo: user?.uid).get().then((value) {
+                              value.docs.forEach((element) {
+                                  print("------------------->${element.id}");
+                                  })});
+```
+
+```dart
+snapshot.data!.docs[index].id
+```
