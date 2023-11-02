@@ -84,11 +84,11 @@
 
 -كيف يمكننا ارسال الاشعارات من التطبيق بدلا من واجهة الفايربيس ? 
 
-- باستخدام ال Api  نقدر نرسل اشعارات الى المستخدمين وهذه هي الطريقة المتبعة
-- ندخل الى محرك البحث ونبحث عن how to send notification using api , روح مباشرة الى ال stackOverFlow
-- الرابط https://stackoverflow.com/questions/37490629/firebase-send-notification-with-rest-api 
+باستخدام ال Api  نقدر نرسل اشعارات الى المستخدمين وهذه هي الطريقة المتبعة
+ندخل الى محرك البحث ونبحث عن how to send notification using api , روح مباشرة الى ال stackOverFlow
+الرابط https://stackoverflow.com/questions/37490629/firebase-send-notification-with-rest-api 
  
-- بعدها استخدم ال postman لتجربة ال api ومن ثم حول ال api الى code مكتوب بلغة ال dart ,
+بعدها استخدم ال postman لتجربة ال api ومن ثم حول ال api الى code مكتوب بلغة ال dart ,
 الفنكش بتكون  كالتالي
 ```dart
 RequestNotifications({required String title,required String body,required String token})async{
@@ -126,8 +126,8 @@ RequestNotifications({required String title,required String body,required String
 
 # الدرس الرابع
 - Foreground messages OnMessage
-- ال OnMessageهي عبارة عن فنكشن بتشتغل في حالة ال foreground( التطبيق مفتوح ) عند وصول الأشعار.
-- الفنكشن من نوع streem يعني بتلاحظ التعيرات مباشرة ، لذا افضل مكان لها بيكون في initState حق دالة ال main ، والافضل في الصفحة الرئيسية اللي بعد دالة ال main لاننا خارج ال materiaApp لذا الافضل نكون داخل ال MateriaApp من اجل تجنب حدوث اي خطأ.
+ال OnMessageهي عبارة عن فنكشن بتشتغل في حالة ال foreground( التطبيق مفتوح ) عند وصول الأشعار.
+الفنكشن من نوع streem يعني بتلاحظ التعيرات مباشرة ، لذا افضل مكان لها بيكون في initState حق دالة ال main ، والافضل في الصفحة الرئيسية اللي بعد دالة ال main لاننا خارج ال materiaApp لذا الافضل نكون داخل ال MateriaApp من اجل تجنب حدوث اي خطأ.
 ```dart
 void initState() {
 
@@ -140,17 +140,17 @@ if (message.notification != null) {
     });
   }
 ```
-- بداخل الفنكشن فينا نظهر Alert او dialog او sanckBare او local notification او نضيف فنكشن تعدل او تضيف على الداتا بيس او فنكشن تعمل refresh للتطبيق كل هذه الامور نقدر نظيفها داخل OnMessage اللي بيتم استدعاءها عند وصول اي اشعار.
+بداخل الفنكشن فينا نظهر Alert او dialog او sanckBare او local notification او نضيف فنكشن تعدل او تضيف على الداتا بيس او فنكشن تعمل refresh للتطبيق كل هذه الامور نقدر نظيفها داخل OnMessage اللي بيتم استدعاءها عند وصول اي اشعار.
  
 --------------------------------------------------
 
 # الدرس الخامس
 
 Terminated Background  OnBackgroubdMessage
-- ال OnBackgroubdMessage هي عبارة عن فنكشن بتشتغل في حالة ال Terminated or Background( التطبيق مغلق او في الخلفية ) عند وصول الأشعار.
+ال OnBackgroubdMessage هي عبارة عن فنكشن بتشتغل في حالة ال Terminated or Background( التطبيق مغلق او في الخلفية ) عند وصول الأشعار.
 
-- الفنكشن من نوع streem يعني بتلاحظ التعيرات مباشرة.
-- يوجد شرطين لهذه الفنكشن
+الفنكشن من نوع streem يعني بتلاحظ التعيرات مباشرة.
+يوجد شرطين لهذه الفنكشن
 1- It must not be an anonymous function.
 2- It must be a top-level function (e.g. not a class method which requires initialization)
 
@@ -177,10 +177,10 @@ void main() async {
 
 # الدرس السادس
 
-- ارسال data اضافية غير ال title and body مع ال notification.
-- 
-- و ذلك باضافة ال data في ال api وبداخلها Map وبداخلها نقدر نحط عدد لا نهائي من ال data.
-- بالشكل ذا
+ارسال data اضافية غير ال title and body مع ال notification.
+ 
+و ذلك باضافة ال data في ال api وبداخلها Map وبداخلها نقدر نحط عدد لا نهائي من ال data.
+بالشكل ذا
 ```dart
 {
     "to": "cGebL2CcSpeKBglsRPQO3v:APA91bEtDvCDoA_8wRIH_8SJCkZb1Bk9E5Z3VKSicKcGSNV5kruNd9McQ2iRQ_Hc7nG8MLmnA5GIvOAegVTcq2aGKCW7vI1Tz4Uvr0ZU6FyM0cE_Qwic2TdVqa9t5CCOgHJrRJjv0zNz",
@@ -244,8 +244,8 @@ RequestNotifications({required String title,required String body,required String
 Handling Interaction
 كيفية التفاعل مع الاشعارات.
 
-- عند وصول الاشعار والضغط علية بيفتح التطبيق مباشرة بدون عمل اي حاجه وهذا هو الوضع الافتراضي.
-- لكن لو نحن عايزين عند الضغط( و ليس عند وصول الاشعار ) على الاشعار الواصل الينا ان يحدث شيء ما مثل استدعاء فنكشن محدده او شيء من هذا القبيل.
+عند وصول الاشعار والضغط علية بيفتح التطبيق مباشرة بدون عمل اي حاجه وهذا هو الوضع الافتراضي.
+لكن لو نحن عايزين عند الضغط( و ليس عند وصول الاشعار ) على الاشعار الواصل الينا ان يحدث شيء ما مثل استدعاء فنكشن محدده او شيء من هذا القبيل.
 
 يوجد  functions  2 تتفاعل مع الاشعارات
 
@@ -310,4 +310,4 @@ A Stream which posts a RemoteMessage when the application is opened from a backg
 
 --------------------------------------------------
 
-# الدرس السابع 
+# الدرس الثامن 
