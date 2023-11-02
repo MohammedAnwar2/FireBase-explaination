@@ -305,3 +305,6 @@ A Stream which posts a RemoteMessage when the application is opened from a backg
 }
 ```
 - تجربتي ---» getInitialMessage() ، لما افتح التطبيق اول مره واغلقه اي اخليه بوضع ال Terminated واحاول استلم اشعار فاننا لا اقدر ، ولحل هذه المشكله لما نشغل التطبيق اول راح نظهر snackbare مخفي لانه اذا سوينا كذا خلاص كأن ال getInitialMessage() يتم تفعيلها
+
+
+# الدرس السابع 
