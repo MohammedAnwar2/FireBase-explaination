@@ -249,7 +249,7 @@ Handling Interaction
 
 يوجد  functions  2 تتفاعل مع الاشعارات
 
-- The firebase-messaging package provides two ways to handle this interaction:
+The firebase-messaging package provides two ways to handle this interaction:
 
 1- getInitialMessage(): 
 If the application is opened from a terminated state a Future containing a RemoteMessage will be returned. Once consumed, the RemoteMessage will be removed.
