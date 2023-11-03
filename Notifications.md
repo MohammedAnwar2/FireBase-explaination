@@ -420,7 +420,9 @@ FirebaseMessaging.instance.unsubscribeFromTopic('b')
 الزر الثالث : 
 
 await RequestNotificationsTopic(title: "See the Error",body: "Mohammed Anwar",topic: 'b');
-وظيفته استدعاء الفنكشن RequestNotificationsTopic من أجل إرسال الأشعار.
+وظيفته استدعاء الفنكشن RequestNotificationsTopic 
+
+من أجل إرسال الأشعار.
 
 
 
@@ -428,7 +430,10 @@ await RequestNotificationsTopic(title: "See the Error",body: "Mohammed Anwar",to
 
 كل الدوام اللي تكملنا عليها في ال token , برضو نقدر نطبقها على ال topic الاختلاف فقط هو طريقة إرسال الأشعار ، يعني اما بال token او ال topic , وكل الفنكشنات تشتغل على كلا الطريقتين ....فالنكشنات مثل ما تكملنا عليهن هن👇🏻👇🏻
 
-OnMessage
-OnBackgroubdMessage
-onMessageOpenedApp
-getInitialMessage()
+OnMessage.
+
+OnBackgroubdMessage.
+
+onMessageOpenedApp.
+
+getInitialMessage().
