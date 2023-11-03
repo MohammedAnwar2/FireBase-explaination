@@ -310,4 +310,125 @@ A Stream which posts a RemoteMessage when the application is opened from a backg
 
 --------------------------------------------------
 
-# الدرس الثامن 
+# الدرس الثامن
+
+- خلال الدرس الأول شرحنا أنه يمكن بواسطة الtoken إرسال اشعار ، وبرضو عرفنا ان ال token يتغير عند حذف التطبيق و تنزيله وبرضو لكل جهاز token فريد اي مختلف ، إذن فال token هو فريد unique , فبالتالي إذا أنا عايز ارسل اشعار الى شخص معين فانه لازم أعرف ال token حق الجهاز بتاعه حتى ارسل الأشعار ، افترض ان هذا الشخص له اكثر من جهاز وكل الأجهزة تبعه فيها نفس الحساب فالبتالي يجي علي معرفة كل ال token حق جميع الأجهزة حتى يتم إرسال الأشعار لكل الأجهزة بتاعه لان الشخص يقدر يفتح له حساب من اكثر من جهاز وذي مشكله كبيرة انه يجب علينا معرفة ال token حق الأجهزة حق المستخدم. مثال بيوضح كل حاجة...» افترض انه معنا 5000 مستخدم وعايز ارسل لهم نفس الأشعار ، فهل أنا باروح الى الفايرستور وبعمل استعلام لكل ال tokens المخزنين عندي في الفايرستور وارسل اشعار واحد واحد ؟؟ و ذا الشيء مش منطقي بالخالص ، لانه بضطر أعمل for وبعمل اكثر من request وكل ذا محسوب عليّ كمبرمج وبرضو برهق ال server كثيير .
+
+الحل لكل هذا , ال Topic
+مثال لتوضيح ال topic
+- إذا نزل احد اليوتيوبر اللي نحن مشتركين معه post معين فسيصل هذا الأشعار للجميع ، هنا تم استخدام ال topic
+- افترض ان ال topic حق اليوتيوبر هذا اسمه Mohammad Anwar , 
+
+```dart
+await FirebaseMessaging.instance.subscribeToTopic('Mohammad Anwar');
+```
+فهنا أي شخص مشترك بهذه القناة راح يوصل له اشعار ، ما بيهمنا ال token بتاعه.
+- فال topic هو نفس نظام قنوات اليوتيوب او الفيسبوك، إذا كان مشترك راح يوصل له اشعار واذا كان غير مشترك ما رح يوصل له اشعار ، يعني لو مثلا أنا مشترك في قناة فيسبوك ،وصاحب القناة ارسل post فانا الأشعار راح يوصل لكل المستخدمين المشتركين بهذه القناة.
+
+
+
+- برنامج كامل لإرسال الاشعارات مع الشرح👇🏻👇🏻
+  
+```dart
+//Function to send notificatoins
+
+RequestNotificationsTopic({required String title,required String body,required String topic})async{
+  String serverToken = 'AAAAxfKVswM:APA91bFoUNmeVb2PXuh1rmSR6KZK0uN9K3dRqNGT2GlCjBK-SRzVHNusfHgOO0lF0z97fme2zjzWXlamdhblPeRPExQscSNxwdokr9eETTXmxt4_Q-XRJ_WYszoOrmyak3ZxRBP0qtfg';
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization':'key=$serverToken'
+  };
+  var request = http.Request('POST', Uri.parse('https://fcm.googleapis.com/fcm/send'));
+  request.body = json.encode({
+    "to": "/topics/$topic",
+    "notification": {
+      "title": title,
+      "body": body,
+      "mutable_content": true,
+      "sound": "Tri-tone"
+    },
+
+    "data": {
+      "name": "MOHAMMED ANWAE",
+      "age": "23",
+      "phone": "Ridmi Note 10"
+    }
+
+  });
+  request.headers.addAll(headers);
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    print(await response.stream.bytesToString());
+  }
+  else {
+  print(response.reasonPhrase);
+  }
+}
+
+```
+
+```dart
+class TestPage extends StatelessWidget {
+  const TestPage({super.key});
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Notifications'),
+      ),
+      body: ListView(
+        children: [
+          ElevatedButton(onPressed: () async{
+            // subscribe to topic on each app start-up
+            await FirebaseMessaging.instance.subscribeToTopic('b');
+          }, child: const Text("SubscribeToTopic")),
+          ElevatedButton(onPressed: () async{
+            await FirebaseMessaging.instance.unsubscribeFromTopic('b');
+
+          }, child: const Text("UnsubscribeToTopic")),
+          ElevatedButton(onPressed: () async{
+
+            await RequestNotificationsTopic(title: "See the Error",body: "Mohammed Anwar",topic: 'b');
+          }, child: const Text("Send Notification")),
+
+        ],
+      ),
+    );
+  }
+}
+
+```
+
+في البرنامج اعلاه.
+-أولا الفنكشن  RequestNotificationsTopic
+تحتوي على ثلاثة براميتر title , body , topic
+هي هي نفسها الفانكشن اللي نرسل بواسطها الاشعار بواسطة ال token , لكن هوا بدل ما نرسل بواسطة token ,نرسل بواسطة ال topic . يعني بدل ما to الى token الجهاز ، فنعمل to الى /topics/اسم الtopic .
+
+ملاحظة مهمه لازم يكون كذا 
+"to": "/topics/$nameOfTopic",
+
+
+ثانيا الازرار في البرنامج.
+
+الزر الأول : 
+FirebaseMessaging.instance.subscribeToTopic('b')
+وظيفتة يخلي المستخدم يشترك في ال topic اللي اسمه هنا 'b' ، يعني كلما ارسلنا اشعار على ال topic اللي اسمه b راح يستلمه المستخدم اللي اشترك على هذا ال topic.
+
+الزر الثاني :
+FirebaseMessaging.instance.unsubscribeFromTopic('b')
+وظيفتة إلغاء الاشتراك من  ال topic اللي اسمه 'b' ، يعني كلما ارسلنا اشعار على ال topic اللي اسمه b ما راح يستلمه المستخدم ابدا ، لانه عاده ما  اشترك على هذا ال topic.
+
+الزر الثالث : 
+
+await RequestNotificationsTopic(title: "See the Error",body: "Mohammed Anwar",topic: 'b');
+وظيفته استدعاء الفنكشن RequestNotificationsTopic من أجل إرسال الأشعار.
+
+
+
+ملاحظة مهمه جدا.
+
+كل الدوام اللي تكملنا عليها في ال token , برضو نقدر نطبقها على ال topic الاختلاف فقط هو طريقة إرسال الأشعار ، يعني اما بال token او ال topic , وكل الفنكشنات تشتغل على كلا الطريقتين ....فالنكشنات مثل ما تكملنا عليهن هن👇🏻👇🏻
+
+OnMessage
+OnBackgroubdMessage
+onMessageOpenedApp
+getInitialMessage()
